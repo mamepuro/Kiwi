@@ -11,6 +11,6 @@ namespace Kiwi
         public CardSpecialRank CardSpecialRank { get; set; }
         public int Id { get; set; }
         public int Month { get; set; }
-
+        public int Point { get; set; }
     }
 }
