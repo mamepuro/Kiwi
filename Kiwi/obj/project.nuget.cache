@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "2PPn2IyMtMLPNn8eKXOkK0yum6OsoUuuuq9MY4iOV7F72xrqkm/Qxj3pbq7tFJ8Zx5TQs9cf0WuFVS+kRauG2A==",
+  "dgSpecHash": "lq+1nH5PVZwu7LYDwQH7Isw1myIkQVQ+MG5QoeXmHq/eHvzLlaqNzP3gHqJQTmDIo0KMSzcvNQ9+ghqDteQzeA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ayata\\source\\repos\\Kiwi\\Kiwi.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\ayata\\OneDrive - 筑波大学\\ドキュメント\\Develop\\Kiwi\\Kiwi\\Kiwi.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ayata\\.nuget\\packages\\altseed2\\2.0.0\\altseed2.2.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

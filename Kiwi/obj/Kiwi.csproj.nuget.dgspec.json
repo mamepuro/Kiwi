@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ayata\\source\\repos\\Kiwi\\Kiwi.csproj": {}
+    "C:\\Users\\ayata\\OneDrive - 筑波大学\\ドキュメント\\Develop\\Kiwi\\Kiwi\\Kiwi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ayata\\source\\repos\\Kiwi\\Kiwi.csproj": {
+    "C:\\Users\\ayata\\OneDrive - 筑波大学\\ドキュメント\\Develop\\Kiwi\\Kiwi\\Kiwi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ayata\\source\\repos\\Kiwi\\Kiwi.csproj",
+        "projectUniqueName": "C:\\Users\\ayata\\OneDrive - 筑波大学\\ドキュメント\\Develop\\Kiwi\\Kiwi\\Kiwi.csproj",
         "projectName": "Kiwi",
-        "projectPath": "C:\\Users\\ayata\\source\\repos\\Kiwi\\Kiwi.csproj",
+        "projectPath": "C:\\Users\\ayata\\OneDrive - 筑波大学\\ドキュメント\\Develop\\Kiwi\\Kiwi\\Kiwi.csproj",
         "packagesPath": "C:\\Users\\ayata\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ayata\\source\\repos\\Kiwi\\obj\\",
+        "outputPath": "C:\\Users\\ayata\\OneDrive - 筑波大学\\ドキュメント\\Develop\\Kiwi\\Kiwi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ayata\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -37,6 +37,12 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "dependencies": {
+            "Altseed2": {
+              "target": "Package",
+              "version": "[2.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
