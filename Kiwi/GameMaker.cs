@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json;
 using System.IO;
 using Altseed2;
+using System.Linq;
 
 namespace Kiwi
 {
@@ -40,6 +41,22 @@ namespace Kiwi
             return cards;
         }
 
+        public static List<Card> Shuffle(List<Card> cards)
+        {
+            var newList = new List<Card>();
+            var rnd = new Random();
+            var shuffledCards = cards.OrderBy(item => rnd.Next());
+            foreach(var v in shuffledCards)
+            {
+                newList.Add(v);
+            }
+            return newList;
+        }
+
+        public static void MakeFiled(List<Card> cards)
+        {
+
+        }
         public static void DeployAllCards(List<Card> cards)
         {
             int counter = 0;
