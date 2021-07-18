@@ -6,6 +6,6 @@ namespace Kiwi
 {
     enum CardSpecialRank
     {
-        Inoshishi, Shika, Chou, Sakazuki, Sakura, Tsuki, NULL
+        AmeShikou,Inoshishi, Shika, Chou, Sakazuki, Sakura, Tsuki, AkaTan, AoTan,NULL
     }
 }

@@ -12,7 +12,10 @@ namespace Kiwi
         static void Main(string[] args)
         {
             Engine.Initialize("Kiwi", 1280, 960);
-            var c = new Card("a");
+            //var c = new Card("a");
+            var c = new List<Card>();
+            c = GameMaker.GetCardList("../../../json1.json");
+            GameMaker.DeployAllCards(c);
             while(Engine.DoEvents())
             {
                 Engine.Update();

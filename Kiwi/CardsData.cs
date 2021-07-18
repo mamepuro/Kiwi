@@ -7,10 +7,9 @@ namespace Kiwi
     class CardsData
     {
         public string CardName { get; set; }
-        public CardRank CardRank { get; set; }
-        public CardSpecialRank CardSpecialRank { get; set; }
+        public string CardRank { get; set; }
+        public string CardSpecialRank { get; set; }
         public int Id { get; set; }
         public int Month { get; set; }
-        public int Point { get; set; }
     }
 }

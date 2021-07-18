@@ -6,7 +6,7 @@ namespace Kiwi
 {
     enum CardRank
     {
-        Gokou,
+        Hikari,
         Tane,
         Tanzaku,
         Kasu
