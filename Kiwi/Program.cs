@@ -12,6 +12,7 @@ namespace Kiwi
         static void Main(string[] args)
         {
             Engine.Initialize("Kiwi", 1280, 960);
+            var c = new Card("a");
             while(Engine.DoEvents())
             {
                 Engine.Update();

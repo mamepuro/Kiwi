@@ -18,5 +18,12 @@ namespace Kiwi
         const string ResourceFilePath = "Resource/";
         public Card(CardsData data)
         {}
+        public Card(string name)
+        {
+            Texture = Texture2D.LoadStrict("Resource/1_H.jpg");
+            Position = new Vector2F(500, 600);
+            Scale = new Vector2F(0.5f, 0.5f);
+            Engine.AddNode(this);
+        }
     }
 }
