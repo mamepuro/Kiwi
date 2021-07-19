@@ -14,14 +14,9 @@ namespace Kiwi
             Engine.Initialize("Kiwi", 1280, 960);
             //var c = new Card("a");
             var c = new List<Card>();
-            c = GameOperator.GetCardList("../../../json1.json");
-            c = GameOperator.Shuffle(c);
-            int counter = 0;
-            var initPos = new Vector2F(100, 50);
-            //GameOperator.DeployAllCards(c);
-            GameOperator.MakeFiled(c);
             var scene = new GameMainScene();
             Engine.AddNode(scene);
+            GameOperator.InitializeGame(scene, ref c);
             while(Engine.DoEvents())
             {
                 Engine.Update();
@@ -31,16 +26,10 @@ namespace Kiwi
                 }
                 else if(Engine.Keyboard.GetKeyState(Key.Enter) == ButtonState.Push)
                 {
-                    if(c.Count > 0)
+                    Console.WriteLine("残り" + c.Count + "枚");
+                    if (c.Count > 0)
                     {
-                        var card= c[0];
-                        Vector2F size = card.Texture.Size * card.Scale;
-                        int x = counter % 8;
-                        int y = counter / 8;
-                        card.Position = initPos + (size * new Vector2F(x, y));
-                        Engine.AddNode(card);
-                        c.RemoveAt(0);
-                        counter++;
+                        GameOperator.DrawCard(c);
                     }
                 }
             }
