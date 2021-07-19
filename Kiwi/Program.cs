@@ -14,11 +14,14 @@ namespace Kiwi
             Engine.Initialize("Kiwi", 1280, 960);
             //var c = new Card("a");
             var c = new List<Card>();
-            c = GameMaker.GetCardList("../../../json1.json");
-            c = GameMaker.Shuffle(c);
+            c = GameOperator.GetCardList("../../../json1.json");
+            c = GameOperator.Shuffle(c);
             int counter = 0;
             var initPos = new Vector2F(100, 50);
-            //GameMaker.DeployAllCards(c);
+            //GameOperator.DeployAllCards(c);
+            GameOperator.MakeFiled(c);
+            var scene = new GameMainScene();
+            Engine.AddNode(scene);
             while(Engine.DoEvents())
             {
                 Engine.Update();

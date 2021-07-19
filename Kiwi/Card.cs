@@ -15,6 +15,14 @@ namespace Kiwi
         public CardSpecialRank CardSpecialRank{ get; set; }
         public string CardName { get; set; }
         public int Month { get; set; }
+        /// <summary>
+        /// テクスチャーのスケールを考慮した場合のサイズ
+        /// </summary>
+        public Vector2F Size { get; set; }
+        /// <summary>
+        /// 場にこのカードが存在するかどうか(山札や取り札にあるときは偽の値を取る)
+        /// </summary>
+        public bool isInField { get; set; }
 
         const string ResourceFilePath = "Resource/";
         public Card(CardsData data)
@@ -29,13 +37,17 @@ namespace Kiwi
             Texture = Texture2D.LoadStrict(ResourceFilePath + CardName + ".jpg");
             Position = new Vector2F(500, 600);
             Scale = new Vector2F(0.5f, 0.5f);
+            Size = Texture.Size * Scale;
+            isInField = false;
         }
+
+        /*デバック用
         public Card(string name)
         {
             Texture = Texture2D.LoadStrict("Resource/1_H.jpg");
             Position = new Vector2F(500, 600);
             Scale = new Vector2F(0.5f, 0.5f);
             Engine.AddNode(this);
-        }
+        }*/
     }
 }
