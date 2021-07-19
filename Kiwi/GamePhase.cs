@@ -21,5 +21,9 @@ namespace Kiwi
         /// チェックを行うフェーズ
         /// </summary>
         checkingPhase,
+        /// <summary>
+        /// カードを取得するフェーズ
+        /// </summary>
+        GettingCardsPhase
     }
 }

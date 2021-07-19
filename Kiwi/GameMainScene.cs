@@ -12,12 +12,16 @@ namespace Kiwi
         GamePhase phase { get; set; }
         Card selectedHandCard { get; set; }
         Card selectedFieldCard { get; set; }
+        Player player;
+        Player cpu;
 
         public GameMainScene()
         {
             phase = GamePhase.SelectingHandCardPhase;
             selectedFieldCard = null;
             selectedHandCard = null;
+            player = new Player(this, PlayerAttribute.Human);
+            cpu = new Player(this, PlayerAttribute.CPU);
         }
 
         /// <summary>
@@ -82,26 +86,105 @@ namespace Kiwi
             {
                 if(handcard.Month == fieldcard.Month)
                 {
-                    Engine.RemoveNode(handcard);
-                    Engine.RemoveNode(fieldcard);
-                    handcard = null;
-                    fieldcard = null;
+                    GameOperator.cardsInField.Remove(selectedFieldCard);
+                    GameOperator.cardsInPlayersHand.Remove(selectedHandCard);
+                    //Engine.RemoveNode(handcard);
+                    //Engine.RemoveNode(fieldcard);
+                    //handcard = null;
+                    //fieldcard = null;
                     phase = GamePhase.SelectingHandCardPhase;
+                    GettingCards(handcard, fieldcard, player);
+                }
+            }
+        }
+
+        public void GettingCards(Card handCard, Card fieldCard, Player player)
+        {
+            var margin = new Vector2F(2, 4);
+            float x, y;
+            if(player._attribute == PlayerAttribute.Human)
+            {
+                handCard.Scale = new Vector2F(0.25f, 0.25f);
+                handCard.Size = handCard.Texture.Size * handCard.Scale;
+                switch (handCard.CardRank)
+                {
+                    case CardRank.Hikari:
+                        x = player.CardStockPosition.X + (margin.X + handCard.Size.X) * player.HikariCardCollection.Count;
+                        y = player.CardStockPosition.Y;
+                        handCard.Position = new Vector2F(x, y);
+                        player.HikariCardCollection.Add(handCard);
+                        break;
+                    case CardRank.Tane:
+                        x = player.CardStockPosition.X + (margin.X + handCard.Size.X) * player.TaneCardCollection.Count;
+                        y = player.CardStockPosition.Y + margin.Y + handCard.Size.Y;
+                        handCard.Position = new Vector2F(x, y);
+                        player.TaneCardCollection.Add(handCard);
+                        break;
+                    case CardRank.Tanzaku:
+                        x = player.CardStockPosition.X + (margin.X + handCard.Size.X) * player.TanzakuCardCollection.Count;
+                        y = player.CardStockPosition.Y + (margin.Y + handCard.Size.Y) * 2;
+                        handCard.Position = new Vector2F(x, y);
+                        player.TanzakuCardCollection.Add(handCard);
+                        break;
+                    case CardRank.Kasu:
+                        x = player.CardStockPosition.X + (margin.X + handCard.Size.X) * player.KasuCardCollection.Count;
+                        y = player.CardStockPosition.Y + (margin.Y + handCard.Size.Y) * 3;
+                        handCard.Position = new Vector2F(x, y);
+                        player.KasuCardCollection.Add(handCard);
+                        break;
+                    default:
+                        break;
+                }
+
+                fieldCard.Scale = new Vector2F(0.25f, 0.25f);
+                fieldCard.Size = fieldCard.Size * fieldCard.Scale;
+                switch (fieldCard.CardRank)
+                {
+                    case CardRank.Hikari:
+                        x = player.CardStockPosition.X + (margin.X + fieldCard.Size.X) * player.HikariCardCollection.Count;
+                        y = player.CardStockPosition.Y;
+                        fieldCard.Position = new Vector2F(x, y);
+                        player.HikariCardCollection.Add(fieldCard);
+                        break;
+                    case CardRank.Tane:
+                        x = player.CardStockPosition.X + (margin.X + fieldCard.Size.X) * player.TaneCardCollection.Count;
+                        y = player.CardStockPosition.Y + (margin.Y + handCard.Size.Y);
+                        fieldCard.Position = new Vector2F(x, y);
+                        player.TaneCardCollection.Add(fieldCard);
+                        break;
+                    case CardRank.Tanzaku:
+                        x = player.CardStockPosition.X + (margin.X + fieldCard.Size.X) * player.TanzakuCardCollection.Count;
+                        y = player.CardStockPosition.Y + (margin.Y + handCard.Size.Y) * 2;
+                        fieldCard.Position = new Vector2F(x, y);
+                        player.TanzakuCardCollection.Add(fieldCard);
+                        break;
+                    case CardRank.Kasu:
+                        x = player.CardStockPosition.X + (margin.X + fieldCard.Size.X) * player.KasuCardCollection.Count;
+                        y = player.CardStockPosition.Y + (margin.Y + handCard.Size.Y) * 3;
+                        fieldCard.Position = new Vector2F(x, y);
+                        player.KasuCardCollection.Add(fieldCard);
+                        break;
+                    default:
+                        break;
                 }
             }
         }
         protected override void OnUpdate()
         {
             base.OnUpdate();
-            if(phase == GamePhase.SelectingHandCardPhase)
+            switch (phase)
             {
-                selectedHandCard = GetKeyOfCardsInPlayersHandCollideWithMousePointer();
+                case GamePhase.SelectingHandCardPhase:
+                    selectedHandCard = GetKeyOfCardsInPlayersHandCollideWithMousePointer();
+                    break;
+                case GamePhase.SelectingFieldCardPhase:
+                    selectedFieldCard = GetKeyOfCardsInFiledWithMousePointer();
+                    break;
+                case GamePhase.checkingPhase:
+                    CheckMatchingSelectedCardMonth(selectedHandCard, selectedFieldCard);
+                    break;
+
             }
-            if(phase == GamePhase.SelectingFieldCardPhase)
-            {
-                selectedFieldCard = GetKeyOfCardsInFiledWithMousePointer();
-            }
-            CheckMatchingSelectedCardMonth(selectedHandCard, selectedFieldCard);
         }
     }
 }
