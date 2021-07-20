@@ -109,25 +109,25 @@ namespace Kiwi
                 switch (handCard.CardRank)
                 {
                     case CardRank.Hikari:
-                        x = player.CardStockPosition.X + (margin.X + handCard.Size.X) * player.HikariCardCollection.Count;
+                        x = player.CardStockPosition.X + handCard.Size.X * player.HikariCardCollection.Count;
                         y = player.CardStockPosition.Y;
                         handCard.Position = new Vector2F(x, y);
                         player.HikariCardCollection.Add(handCard);
                         break;
                     case CardRank.Tane:
-                        x = player.CardStockPosition.X + (margin.X + handCard.Size.X) * player.TaneCardCollection.Count;
+                        x = player.CardStockPosition.X  + handCard.Size.X * player.TaneCardCollection.Count;
                         y = player.CardStockPosition.Y + margin.Y + handCard.Size.Y;
                         handCard.Position = new Vector2F(x, y);
                         player.TaneCardCollection.Add(handCard);
                         break;
                     case CardRank.Tanzaku:
-                        x = player.CardStockPosition.X + (margin.X + handCard.Size.X) * player.TanzakuCardCollection.Count;
+                        x = player.CardStockPosition.X  + handCard.Size.X * player.TanzakuCardCollection.Count;
                         y = player.CardStockPosition.Y + (margin.Y + handCard.Size.Y) * 2;
                         handCard.Position = new Vector2F(x, y);
                         player.TanzakuCardCollection.Add(handCard);
                         break;
                     case CardRank.Kasu:
-                        x = player.CardStockPosition.X + (margin.X + handCard.Size.X) * player.KasuCardCollection.Count;
+                        x = player.CardStockPosition.X  + handCard.Size.X * player.KasuCardCollection.Count;
                         y = player.CardStockPosition.Y + (margin.Y + handCard.Size.Y) * 3;
                         handCard.Position = new Vector2F(x, y);
                         player.KasuCardCollection.Add(handCard);
@@ -137,29 +137,33 @@ namespace Kiwi
                 }
 
                 fieldCard.Scale = new Vector2F(0.25f, 0.25f);
-                fieldCard.Size = fieldCard.Size * fieldCard.Scale;
+                fieldCard.Size = fieldCard.Texture.Size * fieldCard.Scale;
+                Console.WriteLine(player.HikariCardCollection.Count);
+                Console.WriteLine(player.TaneCardCollection.Count);
+                Console.WriteLine(player.TanzakuCardCollection.Count);
+                Console.WriteLine(player.KasuCardCollection.Count);
                 switch (fieldCard.CardRank)
                 {
                     case CardRank.Hikari:
-                        x = player.CardStockPosition.X + (margin.X + fieldCard.Size.X) * player.HikariCardCollection.Count;
+                        x = player.CardStockPosition.X  +(fieldCard.Size.X) * player.HikariCardCollection.Count;
                         y = player.CardStockPosition.Y;
                         fieldCard.Position = new Vector2F(x, y);
                         player.HikariCardCollection.Add(fieldCard);
                         break;
                     case CardRank.Tane:
-                        x = player.CardStockPosition.X + (margin.X + fieldCard.Size.X) * player.TaneCardCollection.Count;
+                        x = player.CardStockPosition.X + (fieldCard.Size.X) * player.TaneCardCollection.Count;
                         y = player.CardStockPosition.Y + (margin.Y + handCard.Size.Y);
                         fieldCard.Position = new Vector2F(x, y);
                         player.TaneCardCollection.Add(fieldCard);
                         break;
                     case CardRank.Tanzaku:
-                        x = player.CardStockPosition.X + (margin.X + fieldCard.Size.X) * player.TanzakuCardCollection.Count;
+                        x = player.CardStockPosition.X + fieldCard.Size.X * player.TanzakuCardCollection.Count;
                         y = player.CardStockPosition.Y + (margin.Y + handCard.Size.Y) * 2;
                         fieldCard.Position = new Vector2F(x, y);
                         player.TanzakuCardCollection.Add(fieldCard);
                         break;
                     case CardRank.Kasu:
-                        x = player.CardStockPosition.X + (margin.X + fieldCard.Size.X) * player.KasuCardCollection.Count;
+                        x = player.CardStockPosition.X + fieldCard.Size.X * player.KasuCardCollection.Count;
                         y = player.CardStockPosition.Y + (margin.Y + handCard.Size.Y) * 3;
                         fieldCard.Position = new Vector2F(x, y);
                         player.KasuCardCollection.Add(fieldCard);
