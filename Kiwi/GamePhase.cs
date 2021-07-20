@@ -24,6 +24,18 @@ namespace Kiwi
         /// <summary>
         /// カードを取得するフェーズ
         /// </summary>
-        GettingCardsPhase
+        GettingCardsPhase,
+        /// <summary>
+        /// 花札を取った後山札の一番上のカードとフィールドのカードを選ぶフェーズ
+        /// </summary>
+        SelectingOneMoreCardPhase,
+        /// <summary>
+        /// 2回めのチェックを行うフェーズ
+        /// </summary>
+        SecondCheckingPhase,
+        /// <summary>
+        /// ターン主の交換を行うフェーズ
+        /// </summary>
+        SwappingTurnMasterPhase
     }
 }

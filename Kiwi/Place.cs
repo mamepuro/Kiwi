@@ -9,6 +9,6 @@ namespace Kiwi
     /// </summary>
     enum Place
     {
-        Deck, Field, PlayersHand, CPUsHand, PlayersStock, CPUsStock
+        Deck, Field, PlayersHand, CPUsHand, PlayersStock, CPUsStock, OnDeckTop
     }
 }

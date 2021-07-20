@@ -20,11 +20,14 @@ namespace Kiwi
         /// </summary>
         public Vector2F Size { get; set; }
         /// <summary>
-        /// 場にこのカードが存在するかどうか(山札や取り札にあるときは偽の値を取る)
+        /// カードがどこに存在するか
         /// </summary>
-        public bool isInField { get; set; }
+        public Place whereAmI { get; set; }
 
         const string ResourceFilePath = "Resource/";
+
+        Texture2D backTexture;
+        Texture2D texture;
         public Card(CardsData data)
         {
             Id = data.Id;
@@ -34,13 +37,31 @@ namespace Kiwi
             CardName = data.CardName;
             string filePath = ResourceFilePath + CardName + ".jpg";
             Console.WriteLine(filePath);
-            Texture = Texture2D.LoadStrict(ResourceFilePath + CardName + ".jpg");
             Position = new Vector2F(500, 600);
             Scale = new Vector2F(0.5f, 0.5f);
+            backTexture = Texture2D.LoadStrict(ResourceFilePath + "Back.jpg");
+            texture = Texture2D.LoadStrict(ResourceFilePath + CardName + ".jpg");
+            Texture = texture;
             Size = Texture.Size * Scale;
-            isInField = false;
+            whereAmI = Place.Deck;
         }
 
+        private void InvisualizeMyselfIfIAmCPUsHand()
+        {
+            if(whereAmI == Place.CPUsHand)
+            {
+                Texture = backTexture;
+            }
+            else 
+            {
+                Texture = texture;
+            }
+        }
+        protected override void OnUpdate()
+        {
+            base.OnUpdate();
+            InvisualizeMyselfIfIAmCPUsHand();
+        }
         /*デバック用
         public Card(string name)
         {

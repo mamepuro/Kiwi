@@ -13,10 +13,8 @@ namespace Kiwi
         {
             Engine.Initialize("Kiwi", 1280, 960);
             //var c = new Card("a");
-            var c = new List<Card>();
             var scene = new GameMainScene();
             Engine.AddNode(scene);
-            GameOperator.InitializeGame(scene, ref c);
             while(Engine.DoEvents())
             {
                 Engine.Update();
@@ -26,11 +24,7 @@ namespace Kiwi
                 }
                 else if(Engine.Keyboard.GetKeyState(Key.Enter) == ButtonState.Push)
                 {
-                    Console.WriteLine("残り" + c.Count + "枚");
-                    if (c.Count > 0)
-                    {
-                        GameOperator.DrawCard(c);
-                    }
+                    Console.WriteLine("残り" + Deck.deck.Count + "枚");
                 }
             }
             Engine.Terminate();

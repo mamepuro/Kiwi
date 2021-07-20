@@ -44,16 +44,26 @@ namespace Kiwi
         /// <summary>
         /// 人間の取り札スペースの基準点
         /// </summary>
-        private Vector2F humanStockStandartPos = new Vector2F(1020, 650);
+        private Vector2F humanStockStandartPos = new Vector2F(1020, 550);
         /// <summary>
         /// CPUの取り札スペースの基準点
         /// </summary>
         private Vector2F CPUStockStandartPos = new Vector2F(300, 380);
+        /// <summary>
+        /// 人間の上がりのスコア
+        /// </summary>
+        public int Score = 0;
+
+        /// <summary>
+        /// 人間の上がりの役の集合
+        /// </summary>
+        public HashSet<HanafudaHand> HanafudadHands;
 
         public Player(GameMainScene scene, PlayerAttribute attribute)
         {
             _attribute = attribute;
             mainNode = scene;
+            hand = new List<Card>();
             HikariCardCollection = new List<Card>();
             TaneCardCollection = new List<Card>();
             TanzakuCardCollection = new List<Card>();
@@ -66,6 +76,7 @@ namespace Kiwi
             {
                 CardStockPosition = CPUStockStandartPos;
             }
+            HanafudadHands = new HashSet<HanafudaHand>();
         }
     }
 }

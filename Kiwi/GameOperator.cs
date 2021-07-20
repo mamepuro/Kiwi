@@ -19,21 +19,13 @@ namespace Kiwi
         /// </summary>
         public static List<Card> cardsInField = new List<Card>();
         /// <summary>
-        /// プレイヤーの手札にある花札一覧
-        /// </summary>
-        public static List<Card> cardsInPlayersHand = new List<Card>();
-        /// <summary>
-        /// CPUの手札にある花札の辞書
-        /// </summary>
-        public static List<Card> cardsInCPUHand = new List<Card>();
-        /// <summary>
         /// プレイヤーの手札の初期位置
         /// </summary>
-        public static Vector2F PlayersHandInitPos = new Vector2F(1000, 800);
+        public static Vector2F PlayersHandInitPos = new Vector2F(800, 800);
         /// <summary>
         /// CPUの手札の初期位置
         /// </summary>
-        public static Vector2F CPUHandsInitPos = new Vector2F(200, 800);
+        public static Vector2F CPUHandsInitPos = new Vector2F(1250, 10);
         /// <summary>
         /// Jsonファイルの全ての行を取得します
         /// </summary>
@@ -90,8 +82,8 @@ namespace Kiwi
         /// <param name="deck">山札</param>
         public static void MakeFiled(List<Card> deck)
         {
-            var margin = new Vector2F(30, 30);
-            var initPos = new Vector2F(800, 500);
+            var margin = new Vector2F(20, 20);
+            var initPos = new Vector2F(900, 550);
             int filledCards = 8;
             for(int i = 0;i<filledCards;i++)
             {
@@ -109,14 +101,26 @@ namespace Kiwi
         /// 山札からカードをドローします
         /// </summary>
         /// <param name="deck">山札</param>
-        public static void DrawCard(List<Card> deck)
+        public static void DrawCard(List<Card> deck, Player player)
         {
             var top = deck[0];
-            GameOperator.cardsInPlayersHand.Add(top);
-            deck.RemoveAt(0);
+            player.hand.Add(top);
+            float x, y;
             var margin = new Vector2F(5, 0);
-            float x = GameOperator.PlayersHandInitPos.X - (top.Size.X + margin.X) * GameOperator.cardsInPlayersHand.Count;
-            top.Position = new Vector2F(x, GameOperator.PlayersHandInitPos.Y);
+            if (player._attribute == PlayerAttribute.Human)
+            {
+                top.whereAmI = Place.PlayersHand;
+                x = GameOperator.PlayersHandInitPos.X - (top.Size.X + margin.X) * player.hand.Count;
+                y = GameOperator.PlayersHandInitPos.Y;
+            }
+            else
+            {
+                top.whereAmI = Place.CPUsHand;
+                x = GameOperator.CPUHandsInitPos.X - (top.Size.X + margin.X) * player.hand.Count;
+                y = GameOperator.CPUHandsInitPos.Y;
+            }
+            deck.RemoveAt(0);
+            top.Position = new Vector2F(x, y);
             Engine.AddNode(top);
         }
 
@@ -128,7 +132,7 @@ namespace Kiwi
         /// <param name="fieldKey">カードをどのキーの値のところに配置するか</param>
         public static void PlayCardFromDeck(List<Card> deck, Vector2F fieldPos, int fieldKey)
         {
-            deck[0].isInField = true;
+            deck[0].whereAmI = Place.Field;
             //GameOperator.cardsInFiled.Add(deck[0]);
             GameOperator.cardsInField.Add(deck[0]);
             deck[0].Position = fieldPos;
@@ -136,14 +140,24 @@ namespace Kiwi
             deck.RemoveAt(0);
         }
 
-        public static void InitializeGame(GameMainScene mainSceneNode, ref List<Card> emptyDeck)
+        public static Card DisplayDeckTopCard(GameMainScene mainScene)
+        {
+            var top = Deck.deck[0];
+            top.whereAmI = Place.OnDeckTop;
+            top.Position = Deck.pos;
+            mainScene.AddChildNode(top);
+            Deck.deck.RemoveAt(0);
+            return top;
+        }
+        public static void InitializeGame(GameMainScene mainSceneNode, ref List<Card> emptyDeck, Player player, Player cpu)
         {
             emptyDeck = GameOperator.GetCardList("../../../json1.json");
             emptyDeck = GameOperator.Shuffle(emptyDeck);
             GameOperator.MakeFiled(emptyDeck);
             for(int i = 0;i<8;i++)
             {
-                DrawCard(emptyDeck);
+                DrawCard(emptyDeck, player);
+                DrawCard(emptyDeck, cpu);
                 Console.WriteLine("残り" + emptyDeck.Count + "枚");
             }
 
@@ -162,7 +176,7 @@ namespace Kiwi
                 int x = counter % 8;
                 int y = counter / 8;
                 c.Position = initPos + (c.Size * new Vector2F(x, y));
-                c.isInField = true;
+                c.whereAmI = Place.Field;
                 if(c.Month <= 12)
                 {
                     Engine.AddNode(c);
